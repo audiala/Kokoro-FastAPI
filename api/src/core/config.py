@@ -1,5 +1,7 @@
+import os
 from pydantic_settings import BaseSettings
 
+TEMP_DIR: str = os.getenv("TEMP_DIR", "/tmp")
 
 class Settings(BaseSettings):
     # API Settings
@@ -8,6 +10,7 @@ class Settings(BaseSettings):
     api_version: str = "1.0.0"
     host: str = "0.0.0.0"
     port: int = 8880
+
 
     # TTS Settings
     output_dir: str = "output"

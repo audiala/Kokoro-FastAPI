@@ -8,10 +8,13 @@ services:
     volumes:
       - ../../api/src:/app/api/src  # Mount src for development
       - ../../api/src/voices:/app/api/src/voices  # Mount voices for persistence
+      - /path/on/host/temp_directory:/mnt/temp
+
     ports:
-      - "8880:8880"
+      - "8000:8000"
     environment:
       - PYTHONPATH=/app:/app/models
+      - TEMP_DIR=/mnt/DATA/kokoro-tts/temp
     deploy:
       resources:
         reservations:

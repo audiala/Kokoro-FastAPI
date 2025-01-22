@@ -14,7 +14,6 @@ from .core.config import settings
 from .routers.development import router as dev_router
 from .routers.openai_compatible import router as openai_router
 from .services.tts_model import TTSModel
-from .services.tts_service import TTSService
 
 
 def setup_logger():

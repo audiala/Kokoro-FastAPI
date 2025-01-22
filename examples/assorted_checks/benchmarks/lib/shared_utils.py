@@ -18,6 +18,8 @@ try:
 except ImportError:
     pass
 
+from ..core.config import settings  # Import the configuration settings
+
 
 def check_audio_file_is_silent(audio_path: str, threshold: float = 0.01) -> bool:
     """Check if an audio file is silent by comparing peak amplitude to a threshold.
@@ -40,15 +42,13 @@ def get_audio_length(audio_data: bytes, temp_dir: str = None) -> float:
 
     Args:
         audio_data: Raw audio bytes
-        temp_dir: Directory for temporary file. If None, uses system temp directory.
+        temp_dir: Directory for temporary file. If None, uses configured temp directory.
 
     Returns:
         float: Audio length in seconds
     """
     if temp_dir is None:
-        import tempfile
-
-        temp_dir = tempfile.gettempdir()
+        temp_dir = settings.TEMP_DIR  # Use the configured TEMP_DIR
 
     temp_path = os.path.join(temp_dir, "temp.wav")
     os.makedirs(temp_dir, exist_ok=True)

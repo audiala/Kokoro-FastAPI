@@ -62,4 +62,4 @@ ENV PATH="/app/.venv/bin:$PATH"
 ENV UV_LINK_MODE=copy
 
 # Run FastAPI server
-CMD ["uv", "run", "python", "-m", "uvicorn", "api.src.main:app", "--host", "0.0.0.0", "--port", "8880", "--log-level", "debug"]
+CMD ["uv", "run", "python", "-m", "uvicorn", "api.src.main:app", "--host", "0.0.0.0", "--port", "8000", "--log-level", "debug", "--workers", "10"]
