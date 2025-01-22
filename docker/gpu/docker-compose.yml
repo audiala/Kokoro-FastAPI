@@ -8,19 +8,19 @@ services:
     volumes:
       - ../../api/src:/app/api/src  # Mount src for development
       - ../../api/src/voices:/app/api/src/voices  # Mount voices for persistence
-      - /path/on/host/temp_directory:/mnt/temp
+      - /mnt/DATA/kokoro/temp:/tmp
 
     ports:
       - "8000:8000"
     environment:
       - PYTHONPATH=/app:/app/models
-      - TEMP_DIR=/mnt/DATA/kokoro-tts/temp
+      - TEMP_DIR=/tmp
     deploy:
       resources:
         reservations:
           devices:
             - driver: nvidia
-              count: 1
+              device_ids: ["1"]
               capabilities: [gpu]
 
   # Gradio UI service
@@ -39,4 +39,4 @@ services:
       - PYTHONUNBUFFERED=1  # Ensure Python output is not buffered
       - DISABLE_LOCAL_SAVING=false  # Set to 'true' to disable local saving and hide file view
       - API_HOST=kokoro-tts  # Set TTS service URL
-      - API_PORT=8880  # Set TTS service PORT
+      - API_PORT=8000  # Set TTS service PORT
