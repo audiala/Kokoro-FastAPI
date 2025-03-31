@@ -6,6 +6,7 @@ import sys
 from contextlib import asynccontextmanager
 
 import uvicorn
+from uvicorn.config import LOGGING_CONFIG
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from loguru import logger
@@ -107,4 +108,5 @@ async def test_endpoint():
 
 
 if __name__ == "__main__":
+    LOGGING_CONFIG["formatters"]["default"]["fmt"] = "%(asctime)s [%(name)s] %(levelprefix)s %(message)s"
     uvicorn.run("api.src.main:app", host=settings.host, port=settings.port, reload=True)
