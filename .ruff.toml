@@ -1,5 +1,7 @@
 line-length = 88
 
+exclude = ["examples"]
+
 [lint]
 # F: Basic Python errors (pyflakes)
 # E: Common style errors
@@ -19,6 +21,5 @@ target-version = "py310"
 [lint.isort]
 combine-as-imports = true
 force-wrap-aliases = true
-length-sort = true
 split-on-trailing-comma = true
 section-order = ["standard-library", "third-party", "first-party"]

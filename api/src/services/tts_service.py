@@ -2,19 +2,19 @@ import io
 import os
 import re
 import time
-from typing import List, Tuple, Optional
 from functools import lru_cache
+from typing import List, Optional, Tuple
 
-import numpy as np
-import torch
 import aiofiles.os
+import numpy as np
 import scipy.io.wavfile as wavfile
+import torch
 from loguru import logger
 
-from .audio import AudioService, AudioNormalizer
-from .tts_model import TTSModel
 from ..core.config import settings
+from .audio import AudioNormalizer, AudioService
 from .text_processing import chunker, normalize_text
+from .tts_model import TTSModel
 
 
 class TTSService:
@@ -177,7 +177,7 @@ class TTSService:
                     )
 
                     if chunk_audio is not None:
-                        # Convert chunk with proper header handling
+                        # Convert chunk with proper streaming header handling
                         chunk_bytes = AudioService.convert_audio(
                             chunk_audio,
                             24000,
@@ -185,6 +185,7 @@ class TTSService:
                             is_first_chunk=is_first,
                             normalizer=stream_normalizer,
                             is_last_chunk=(next_chunk is None),  # Last if no next chunk
+                            stream=True  # Ensure proper streaming format handling
                         )
 
                         yield chunk_bytes

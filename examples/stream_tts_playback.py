@@ -8,7 +8,7 @@ import requests
 import sounddevice as sd
 
 
-def play_streaming_tts(text: str, output_file: str = None, voice: str = "af"):
+def play_streaming_tts(text: str, output_file: str = None, voice: str = "af_sky"):
     """Stream TTS audio and play it back in real-time"""
 
     print("\nStarting TTS stream request...")
@@ -74,7 +74,7 @@ def play_streaming_tts(text: str, output_file: str = None, voice: str = "af"):
                 all_audio_data.extend(chunk)
 
                 # Log progress every 10 chunks
-                if chunk_count % 10 == 0:
+                if chunk_count % 100 == 0:
                     elapsed = time.time() - start_time
                     print(
                         f"Progress: {chunk_count} chunks, {total_bytes/1024:.1f}KB received, {elapsed:.1f}s elapsed"

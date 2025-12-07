@@ -1,29 +1,67 @@
+# Version control
+.git
 
-output/*
-output_audio/*
-ui/data/*
-
-*.db
-*.pyc
-*.pth
-*.pt
-
-Kokoro-82M/*
+# Python
 __pycache__/
-.vscode/
-env/
+*.pyc
+*.pyo
+*.pyd
+*.py[cod]
+*$py.class
 .Python
-
-
+.pytest_cache
 .coverage
+.coveragerc
 
-examples/assorted_checks/benchmarks/output_audio/*
-examples/assorted_checks/test_combinations/output/*
-examples/assorted_checks/test_openai/output/*
+# Python package build artifacts
+*.egg-info/
+*.egg
+dist/
+build/
 
-examples/assorted_checks/test_voices/output/*
-examples/assorted_checks/test_formats/output/*
-examples/assorted_checks/benchmarks/output_audio_stream/*
-ui/RepoScreenshot.png
-examples/assorted_checks/benchmarks/output_audio_stream_openai/*
+# Environment
+# .env
+.venv/
+env/
+venv/
+ENV/
 
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Project specific
+# Model files
+
+*.pth
+*.tar*
+
+# Audio files
+examples/*.wav
+examples/*.pcm
+examples/*.mp3
+examples/*.flac
+examples/*.acc
+examples/*.ogg
+examples/speech.mp3
+examples/phoneme_examples/output/example_1.wav
+examples/phoneme_examples/output/example_2.wav
+examples/phoneme_examples/output/example_3.wav
+
+# Other project files
+Kokoro-82M/
+ui/data/
+EXTERNAL_UV_DOCUMENTATION*
+app
+
+# Docker
+Dockerfile*
+docker-compose*
+examples/assorted_checks/River_of_Teet_-_Sarah_Gailey.epub
+examples/ebook_test/chapter_to_audio.py
+examples/ebook_test/chapters_to_audio.py
+examples/ebook_test/parse_epub.py
+examples/ebook_test/River_of_Teet_-_Sarah_Gailey.epub
+examples/ebook_test/River_of_Teet_-_Sarah_Gailey.txt
