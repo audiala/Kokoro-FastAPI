@@ -8,19 +8,19 @@ services:
     volumes:
       - ../../api/src:/app/api/src  # Mount src for development
       - ../../api/src/voices:/app/api/src/voices  # Mount voices for persistence
-      - /mnt/DATA/kokoro/temp:/tmp
+      - /fast/data/audiala/kokoro/temp:/tmp
 
     ports:
       - "8000:8000"
     environment:
       - PYTHONPATH=/app:/app/models
-      - TEMP_DIR=/tmp
+      - TEMP_DIR=/fast/data/audiala/kokoro/tmp
     deploy:
       resources:
         reservations:
           devices:
             - driver: nvidia
-              device_ids: ["1"]
+              device_ids: ["0,1"]
               capabilities: [gpu]
 
   # Gradio UI service
