@@ -2,6 +2,7 @@ name: kokoro-tts
 services:
   kokoro-tts:
     # image: ghcr.io/remsky/kokoro-fastapi-gpu:v0.1.0
+    restart: unless-stopped
     build:
       context: ../..
       dockerfile: docker/gpu/Dockerfile
@@ -9,22 +10,26 @@ services:
       - ../../api/src:/app/api/src  # Mount src for development
       - ../../api/src/voices:/app/api/src/voices  # Mount voices for persistence
       - /fast/data/audiala/kokoro/temp:/tmp
+      - unidic-data:/app/data/unidic  # Persistent storage for unidic dictionary (~1GB)
+      - models-data:/app/models  # Persistent storage for model files
 
     ports:
       - "8000:8000"
     environment:
       - PYTHONPATH=/app:/app/models
       - TEMP_DIR=/fast/data/audiala/kokoro/tmp
+    command: ["uv", "run", "python", "-m", "uvicorn", "api.src.main:app", "--host", "0.0.0.0", "--port", "8000", "--log-level", "debug", "--workers", "2"]
     deploy:
       resources:
         reservations:
           devices:
             - driver: nvidia
-              device_ids: ["0,1"]
+              device_ids: ["0"]
               capabilities: [gpu]
 
   # Gradio UI service
   gradio-ui:
+    restart: unless-stopped
     image: ghcr.io/remsky/kokoro-fastapi-ui:v0.1.0
     # Uncomment below to build from source instead of using the released image
     # build:
@@ -40,3 +45,7 @@ services:
       - DISABLE_LOCAL_SAVING=false  # Set to 'true' to disable local saving and hide file view
       - API_HOST=kokoro-tts  # Set TTS service URL
       - API_PORT=8000  # Set TTS service PORT
+
+volumes:
+  unidic-data:  # Named volume for persistent unidic dictionary storage
+  models-data:  # Named volume for persistent model files
